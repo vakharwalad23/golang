@@ -6,6 +6,15 @@ import (
 	"slices"
 )
 
+type Person struct {
+	name string
+	age  int
+}
+
+func (p *Person) String() string {
+	return fmt.Sprintf("Name: %s, Age: %d", p.name, p.age)
+}
+
 func main() {
 	fruits := []string{"banana", "kiwi", "apple"}
 	fmt.Println(fruits)
@@ -17,18 +26,13 @@ func main() {
 	slices.SortFunc(fruits, lenCmp)
 	fmt.Println(fruits)
 
-	type Person struct {
-		name string
-		age  int
-	}
-
-	people := []Person{
+	people := []*Person{
 		{name: "John", age: 30},
 		{name: "Jack", age: 25},
 		{name: "Rayn", age: 50},
 	}
 
-	slices.SortFunc(people, func(a, b Person) int {
+	slices.SortFunc(people, func(a, b *Person) int {
 		return cmp.Compare(a.age, b.age)
 	})
 	fmt.Println(people)
